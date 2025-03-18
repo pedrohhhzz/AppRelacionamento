@@ -12,8 +12,8 @@ import { connectDB } from "./config/db.js";
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+const app = express(); //servidor express
+const PORT = process.env.PORT || 5000; //definiçao da porta
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,7 +26,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/matches", matchRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, () => { //iniciando servidor usando lsiten para o express ouvir as requisiçes
     console.log("Server iniciou nesse port:" + PORT );
     connectDB()
 });

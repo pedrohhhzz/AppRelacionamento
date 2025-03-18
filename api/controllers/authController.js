@@ -69,7 +69,7 @@ export const login = async (req, res) => {
     try{
 
         if(!email || !password){
-            return res.status(400)({
+            return res.status.json(400)({
                 success: false,
                 message: "Todos os campos são obrigatórios"
             });
@@ -80,7 +80,7 @@ export const login = async (req, res) => {
         if(!user || !(await user.matchPassword(password))){
             return res.status(400).json({ 
                 success: false,
-                message: "Email invalido ou senha",
+                message: "Email ou senha inválidos",
             });
         }
 
