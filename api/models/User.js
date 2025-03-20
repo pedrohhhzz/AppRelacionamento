@@ -1,8 +1,9 @@
+
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
-    name: { // Corrigido para manter a consistência com a função signup
+    name: { 
         type: String,
         required: true,
     },
@@ -67,5 +68,4 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 const User = mongoose.model("User", userSchema);
-
-export default User;
+export default User; 

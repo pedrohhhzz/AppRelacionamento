@@ -49,11 +49,9 @@ export const signup = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
         });
 
-     
-
         res.status(201).json({
             success: true,
-            user:newUser
+            user: newUser,
         });
 
     } catch (error) {
@@ -65,19 +63,18 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const{ email, password } = req.body
-    try{
-
-        if(!email || !password){
-            return res.status.json(400)({
+    const { email, password } = req.body;
+    try {
+        if (!email || !password) {
+            return res.status(400).json({
                 success: false,
                 message: "Todos os campos são obrigatórios"
             });
         }
 
-        const user = await User.findOne({email}).select("+password");
+        const user = await User.findOne({ email }).select("+password");
 
-        if(!user || !(await user.matchPassword(password))){
+        if (!user || !(await user.matchPassword(password))) {
             return res.status(400).json({ 
                 success: false,
                 message: "Email ou senha inválidos",
@@ -86,7 +83,7 @@ export const login = async (req, res) => {
 
         const token = signToken(user._id);
 
-        res.cookie("jwt", token,{
+        res.cookie("jwt", token, {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
             sameSite: "strict",
@@ -98,12 +95,10 @@ export const login = async (req, res) => {
             user,
         });
 
-    } catch(error){
+    } catch (error) {
         console.log("Erro no login do controle", error);
-        res.status(500).json({ success: false, message:"erro no server"});
+        res.status(500).json({ success: false, message: "Erro no servidor" });
     }
-
-
 };
 
 export const logout = async (req, res) => {
